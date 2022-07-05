@@ -15,10 +15,10 @@ def getDownloadPage(url):
     global durl
     loadMainPage(url)
     durl = mainSoup.find('input',{'name':'FU'}).get('value')
-    print('Download Page URL :',url)
-    loadMainPage(url)
+    #print('Download Page URL :',durl)
+    loadMainPage(durl)
 def getGDSep(season,ep,pixel,url):
-    getDownloadPage(url)
+    #getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
     strong = allstrong
     for item in allstrong:
@@ -59,8 +59,9 @@ def getGDSep(season,ep,pixel,url):
             break
     boabd =soup.find('input').get('value')
     print(boabd)
+    webbrowser.open(boabd)
 def getGDriveep(season,ep,pixel,url):
-    getDownloadPage(url)
+    #getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
     strong = allstrong
     for item in allstrong:
@@ -70,6 +71,10 @@ def getGDriveep(season,ep,pixel,url):
             break
         else:
             pass
+
+    if  strong == allstrong:
+        print("Cannot Found The EP {}".format(ep))
+        exit()
     for link in strong:
         if pixel in str(link):
 ##            if link.findAll('a')!=0:
@@ -98,6 +103,7 @@ def getGDriveep(season,ep,pixel,url):
     try:
         boabd =soup.find('input').get('value')
         print(boabd)
+        webbrowser.open(boabd)
     except AttributeError:
         boabd =adsgolink
         print(boabd)
@@ -106,9 +112,8 @@ def GDSorGDrive(choise,season,i,pixel,url):
         getGDSep(season,i,pixel,url)
     elif choise =='2':
         getGDriveep(season,i,pixel,url)
-    elif choise =='3':
-        customDownload(season,i,pixel,url)
 def episodeSelect(choise,season,episode,pixel,url):
+    getDownloadPage(url)
     if '-' in episode:
         episodeRange=episode.split("-")
         Start = int(episodeRange[0])
@@ -121,8 +126,11 @@ def episodeSelect(choise,season,episode,pixel,url):
         for i in episodeList:
             GDSorGDrive(choise,season,i,pixel,url)
     elif "all" in episode.lower():
+
         for i in range(1,100):
             GDSorGDrive(choise,season,i,pixel,url)
+    elif "latest" in episode.lower():
+        latestep(choise,season,pixel,url)
     else:
 ##        try:
         int(episode)
@@ -142,11 +150,37 @@ def takeInput():
     episode =input("Enter the Episode you want to download : ")
     return GDSorGDrive,season,episode,pixel
 
+def latestep(choise,season,pixel,url):
+    global ep
+    getDownloadPage(url)
+    print('Download Page URL :',durl)
+    for ep in range(1,100):
+        allstrong = mainSoup.findAll('strong')
+        strong = allstrong
+        for item in allstrong:
+            if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower():
+                print(item.getText())
+                strong = allstrong[allstrong.index(item):allstrong.index(item)+3]
+                break
+            else:
+                pass
+
+        if  strong == allstrong:
+            #print("Cannot Found The EP {}".format(ep))
+            latest = str(ep-1)
+            print("Latest episode is ",latest)
+            episodeSelect(choise,season,latest,pixel,url)
+            break
+
+
+    print(latest)
+
 
 
 
 ##getDownloadPage('https://mlwbd.love/movie/the-boys-season-3/')
-##episodeSelect('1','1','2','720p')
+##episodeSelect('2','1','all','720p','https://mlwbd.love/movie/the-boys-season-3/')
+##latestep('1','1','720p','https://mlwbd.art/movie/ms-marvel-season-1/')
 
 
 
