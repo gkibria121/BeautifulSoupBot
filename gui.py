@@ -1,7 +1,7 @@
 from tkinter import *
 from movie import mrun,main
 from series import srun,seasonwise,epwise
-from custom import *
+from custom.custom import *
 
 
 def download():
