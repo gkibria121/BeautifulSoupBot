@@ -9,14 +9,13 @@ def download():
     url = e.get()
     print(url)
     preferd= str(var.get())
-    print(preferd)
     choise= str(man.get())
     if pix.get() ==1:
         pixel = '1080p'
     elif pix.get() ==2:
         pixel = '720p'
     elif pix.get() ==3:
-       pixel = 'HVEC 720p '
+       pixel = 'HEVC 720p '
     elif pix.get() ==4:
        pixel = '480p'
     if preferd =='1':
@@ -86,7 +85,7 @@ def manual():
 
         p1 = Radiobutton(frame,text="1080p", variable=pix, value=1)
         p2 = Radiobutton(frame,text="720p", variable=pix, value=2)
-        p3 = Radiobutton(frame,text="720p HVEC", variable=pix, value=3)
+        p3 = Radiobutton(frame,text="720p HEVC", variable=pix, value=3)
         p4 = Radiobutton(frame,text="480p", variable=pix, value=4)
         p1.grid(row=8,column=2)
         p2.grid(row=9,column=2)
@@ -108,7 +107,7 @@ def manual():
 
         p1 = Radiobutton(frame,text="1080p", variable=pix, value=1)
         p2 = Radiobutton(frame,text="720p", variable=pix, value=2)
-        p3 = Radiobutton(frame,text="720p HVEC", variable=pix, value=3)
+        p3 = Radiobutton(frame,text="720p HEVC", variable=pix, value=3)
         p4 = Radiobutton(frame,text="480p", variable=pix, value=4)
 
         p1.grid(row=8,column=2)
@@ -175,7 +174,7 @@ root.geometry("500x600")
 try:
     root.iconbitmap("mlwbd.ico")
 except:
-    pass 
+    pass
 #declaring variable
 var = IntVar()
 man = IntVar()
