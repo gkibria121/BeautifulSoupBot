@@ -172,7 +172,7 @@ root= Tk()
 root.title("Py downloader")
 root.geometry("500x600")
 try:
-    root.iconbitmap("mlwbd.ico")
+    root.iconbitmap("images/mlwbd.ico")
 except:
     pass
 #declaring variable
