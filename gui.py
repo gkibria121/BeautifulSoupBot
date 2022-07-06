@@ -35,15 +35,21 @@ def download():
     if preferd =="3":
         if eors.get() == 1:
             if ep.get() ==1:
-                print("All episode selected",pixel,choise)
-                season ="1"
-                episode= "all"
-                epwise.episodeSelect(choise,season,episode,pixel,url)
+                try:
+                    print("All episode selected",pixel,choise)
+                    season ="1"
+                    episode= "all"
+                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                except UnboundLocalError:
+                    print("You have not selected all options!")
             elif ep.get()==2:
-                print("Latest episode selected")
-                season ="1"
-                episode= "latest"
-                epwise.episodeSelect(choise,season,episode,pixel,url)
+                try:
+                    print("Latest episode selected")
+                    season ="1"
+                    episode= "latest"
+                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                except UnboundLocalError:
+                    print("You have not selected all options!")
         elif eors.get()==2:
             print("season")
 
