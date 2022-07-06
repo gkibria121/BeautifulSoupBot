@@ -18,13 +18,13 @@ def getDownloadPage(url):
     #print('Download Page URL :',durl)
     loadMainPage(durl)
 def getGDSep(season,ep,pixel,url):
-    #getDownloadPage(url)
+    getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
     strong = allstrong
     for item in allstrong:
-        if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower():
+        if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower()or 'epi{}'.format(ep) in str(item).lower()or 'epi {}'.format(ep) in str(item).lower():
             print(item.getText(),end=" ")
-            strong = allstrong[allstrong.index(item):allstrong.index(item)+3]
+            strong = allstrong[allstrong.index(item):allstrong.index(item)+10]
             break
         else:
             pass
@@ -32,12 +32,12 @@ def getGDSep(season,ep,pixel,url):
     if  strong == allstrong:
         print("Cannot Found The EP {}".format(ep))
         exit()
+    if pixel =="720p":
+        z="HEVC"
+    else:
+        z = "kibria"
     for link in strong:
-        if pixel in str(link):
-##            if link.findAll('a')!=0:
-##                link =  strong[strong.index(link)+1]
-##            else:
-##                link = link
+        if pixel in str(link) and z not in str(link):
             for href in link.findAll('a'):
                 if "GDS"  in href.getText():
                     adsgolink =href.get('href')
@@ -55,17 +55,19 @@ def getGDSep(season,ep,pixel,url):
                     loadpage(adsgolink)
                     print(href.getText(),end=" ")
                     break
-
             break
-    boabd =soup.find('input').get('value')
-    print(boabd)
-    webbrowser.open(boabd)
+    try:
+        boabd =soup.find('input').get('value')
+        print(boabd)
+        webbrowser.open(boabd)
+    except NameError:
+        print(pixel," not found!")
 def getGDriveep(season,ep,pixel,url):
     #getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
     strong = allstrong
     for item in allstrong:
-        if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower():
+        if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower()or 'epi{}'.format(ep) in str(item).lower()or 'epi {}'.format(ep) in str(item).lower():
             print(item.getText(),end=" ")
             strong = allstrong[allstrong.index(item):allstrong.index(item)+3]
             break
@@ -75,12 +77,12 @@ def getGDriveep(season,ep,pixel,url):
     if  strong == allstrong:
         print("Cannot Found The EP {}".format(ep))
         exit()
+    if pixel =="720p":
+        z="HEVC"
+    else:
+        z = "kibria"
     for link in strong:
-        if pixel in str(link):
-##            if link.findAll('a')!=0:
-##                link =  strong[strong.index(link)+1]
-##            else:
-##                link = link
+        if pixel in str(link) and z not in str(link):
             for href in link.findAll('a'):
                 if "GDrive1"  in href.getText():
                     adsgolink =href.get('href')
@@ -158,7 +160,7 @@ def latestep(choise,season,pixel,url):
         allstrong = mainSoup.findAll('strong')
         strong = allstrong
         for item in allstrong:
-            if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower():
+            if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower()or 'epi{}'.format(ep) in str(item).lower()or 'epi {}'.format(ep) in str(item).lower():
                 print(item.getText())
                 strong = allstrong[allstrong.index(item):allstrong.index(item)+3]
                 break
@@ -180,7 +182,7 @@ def latestep(choise,season,pixel,url):
 
 ##getDownloadPage('https://mlwbd.love/movie/the-boys-season-3/')
 ##episodeSelect('2','1','all','720p','https://mlwbd.love/movie/the-boys-season-3/')
-##latestep('1','1','720p','https://mlwbd.art/movie/ms-marvel-season-1/')
+##latestep('1','1','480p','https://mlwbd.love/movie/the-boys-season-3/')
 
 
 
