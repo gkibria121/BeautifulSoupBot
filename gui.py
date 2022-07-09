@@ -9,8 +9,8 @@ def download():
     print("running manual download")
     url = e.get()
     print(url)
-    preferd= str(var.get())
-    choise= str(man.get())
+    preferred= str(var.get())
+    choice= str(man.get())
     if pix.get() ==1:
         pixel = '1080p'
     elif pix.get() ==2:
@@ -19,12 +19,12 @@ def download():
        pixel = 'HEVC 720p '
     elif pix.get() ==4:
        pixel = '480p'
-    if preferd =='1':
+    if preferred =='1':
         if  "season" in e.get().lower():
-            preferd ="3"
+            preferred ="3"
         else:
-            mrun.run(url,choise,pixel)
-    if preferd == '2':
+            mrun.run(url,choice,pixel)
+    if preferred == '2':
         global myLabel2,e2,getLink
         openbrowser(url)
         myLabel2 = Label(frame,text="Enter your prefered download link")
@@ -33,14 +33,14 @@ def download():
         e2.grid(row=20,column=2)
         getLink = Button(frame,text="Get link!", command=lambda: selecteDownload(e2.get()))
         getLink.grid(row=20,column=3)
-    if preferd =="3":
+    if preferred =="3":
         if eors.get() == 1:
             if ep.get() ==1:
                 try:
-                    print("All episode selected",pixel,choise)
+                    print("All episode selected",pixel,choice)
                     season ="1"
                     episode= "all"
-                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                    epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
                     print("You have not selected all options!")
             elif ep.get()==2:
@@ -48,7 +48,7 @@ def download():
                     print("Latest episode selected")
                     season ="1"
                     episode= "latest"
-                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                    epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
                     print("You have not selected all options!")
             elif ep.get()==3:
@@ -57,7 +57,7 @@ def download():
                     print(f"Episode {epno} is selected")
                     season ="1"
                     episode= epno
-                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                    epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
                     print("You have not selected all options!")
         elif eors.get()==2:
