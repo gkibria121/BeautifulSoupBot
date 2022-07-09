@@ -61,7 +61,7 @@ def getGDSep(season,ep,pixel,url):
         print(boabd)
         webbrowser.open(boabd)
     except NameError:
-        print(pixel," not found!")
+        print(f"There is no {pixel}!")
 def getGDriveep(season,ep,pixel,url):
     #getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
