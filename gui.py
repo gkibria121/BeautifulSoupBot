@@ -1,3 +1,4 @@
+from ftplib import parse150
 from tkinter import *
 from movie import mrun,main
 from series import srun,seasonwise,epwise
@@ -50,18 +51,40 @@ def download():
                     epwise.episodeSelect(choise,season,episode,pixel,url)
                 except UnboundLocalError:
                     print("You have not selected all options!")
+            elif ep.get()==3:
+                try:
+                    epno= str(p10.get())
+                    print(f"Episode {epno} is selected")
+                    season ="1"
+                    episode= epno
+                    epwise.episodeSelect(choise,season,episode,pixel,url)
+                except UnboundLocalError:
+                    print("You have not selected all options!")
         elif eors.get()==2:
             print("season")
 
-
+def selectep():
+    global p10 
+    p10 = Entry(frame)
+    p10.grid(row=9,column=4)
 
 
 def eps():
-    global p7,p8
-    p7 = Radiobutton(frame,text="all", variable=ep, value=1)
-    p8 = Radiobutton(frame,text="latest", variable=ep, value=2)
+    global p7,p8,p9,p10
+    p7 = Radiobutton(frame,text="All", variable=ep, value=1)
+    p8 = Radiobutton(frame,text="Latest", variable=ep, value=2)
+    p9 = Radiobutton(frame,text="Episode NO.", variable=ep, value=3)  
+    p10 = Entry(frame)
     p7.grid(row=7,column=3)
     p8.grid(row=8,column=3)
+    p9.grid(row=9,column=3)
+    p10.grid(row=9,column=4)
+    
+
+    
+
+
+
 
 
 
@@ -69,6 +92,8 @@ def season():
     try:
         p7.grid_remove()
         p8.grid_remove()
+        p9.grid_remove()
+        p10.grid_remove()
     except:
         pass
     return
@@ -160,6 +185,8 @@ def removeManual():
     try:
         p7.grid_remove()
         p8.grid_remove()
+        p9.grid_remove()
+        p10.grid_remove()
     except:
         pass
     try:
@@ -176,7 +203,7 @@ def custom():
 
 root= Tk()
 root.title("Py downloader")
-root.geometry("500x600")
+root.geometry("600x500")
 try:
     root.iconbitmap("images/mlwbd.ico")
 except:

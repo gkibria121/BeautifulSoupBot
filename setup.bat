@@ -1,0 +1,1 @@
+start cmd /c pip install -r requirements.txt && exit
