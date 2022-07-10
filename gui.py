@@ -6,6 +6,8 @@ from custom.custom import *
 
 
 def download():
+    wc()
+
     print("running manual download")
     url = e.get()
     print(url)
@@ -208,6 +210,12 @@ def removeManual():
         wrng.pack_forget()
     except:
         pass
+def wc():
+    try:
+        wrng.pack_forget()
+    except:
+        pass
+
 
 def custom():
     removeManual()
