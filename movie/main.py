@@ -26,6 +26,7 @@ def getGDS(url,p):
     else:
         q="kibria"
     allstrong = soup.findAll("strong")
+    strong=allstrong
     print("Finding Hindi dubbed")
     for item in allstrong:
         if "hindi" in str(item).lower():
@@ -41,7 +42,6 @@ def getGDS(url,p):
         else:
             strong = allstrong
     print("Finding Download link")
-
     for item in strong:
         if p  in str(item) and q not in str(item):
             ind = strong.index(item)
@@ -69,8 +69,13 @@ def getGDS(url,p):
                     break
             break
     boabd =soup.find('input').get('value')
-    print(boabd)
-    webbrowser.open(boabd)
+    if "boabd" in boabd:
+        print(boabd)
+        webbrowser.open(boabd)
+    else:
+        print(f"{p} not found!")
+        return 0
+
 
 
 

@@ -3,8 +3,12 @@ from movie.main import *
 def run(url,choise,pixel):
 
     if choise == '1':
-        getGDS(url,pixel)
+       x= getGDS(url,pixel)
+       if x==0:
+            return 0
     elif choise == '2':
-        getGDrive(url,pixel)
+        x= getGDrive(url,pixel)
+        if x==0:
+            return 0
 
 ##run('https://mlwbd.cloud/movie/doctor-strange-in-the-multiverse-of-madness-2022/','1','720p')
