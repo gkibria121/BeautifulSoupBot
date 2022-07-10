@@ -1,5 +1,5 @@
-from ftplib import parse150
 from tkinter import *
+from turtle import color
 from movie import mrun,main
 from series import srun,seasonwise,epwise
 from custom.custom import *
@@ -23,16 +23,24 @@ def download():
         if  "season" in e.get().lower():
             preferred ="3"
         else:
-            mrun.run(url,choice,pixel)
+            try:
+                x= mrun.run(url,choice,pixel)
+                if x==0:
+                    msg=f"{pixel} is not found!!"
+                    worning(msg)
+            except UnboundLocalError:
+                msg= "You have not Selected any pixel size".upper()
+                worning(msg)
+                
     if preferred == '2':
         global myLabel2,e2,getLink
         openbrowser(url)
         myLabel2 = Label(frame,text="Enter your prefered download link")
         myLabel2.grid(row=30,column=1)
         e2 = Entry(frame)
-        e2.grid(row=20,column=2)
+        e2.grid(row=30,column=2)
         getLink = Button(frame,text="Get link!", command=lambda: selecteDownload(e2.get()))
-        getLink.grid(row=20,column=3)
+        getLink.grid(row=30,column=3)
     if preferred =="3":
         if eors.get() == 1:
             if ep.get() ==1:
@@ -42,7 +50,8 @@ def download():
                     episode= "all"
                     epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
-                    print("You have not selected all options!")
+                    msg="You have not selected all options!"
+                    worning(msg)
             elif ep.get()==2:
                 try:
                     print("Latest episode selected")
@@ -50,7 +59,8 @@ def download():
                     episode= "latest"
                     epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
-                    print("You have not selected all options!")
+                    msg="You have not selected all options!"
+                    worning(msg)
             elif ep.get()==3:
                 try:
                     epno= str(p10.get())
@@ -59,7 +69,8 @@ def download():
                     episode= epno
                     epwise.episodeSelect(choice,season,episode,pixel,url)
                 except UnboundLocalError:
-                    print("You have not selected all options!")
+                    msg="You have not selected all options!"
+                    worning(msg)
         elif eors.get()==2:
             print("season")
 
@@ -102,29 +113,29 @@ def manual():
     if "season" not in e.get().lower():
         global myLabel, myLabel1, gds, gdrive,p1,p2,p3,p4,p5,p6,b7,p8
 
-        myLabel = Label(frame,text="How do you want to download the file?")
+        myLabel = Label(frame,text="How do you want to download the file?", anchor="w")
         myLabel.grid(row=4,column=2)
 
-        gds = Radiobutton(frame,text="1. GDS", variable=man, value= 1)
-        gdrive = Radiobutton(frame,text="2. GDrive",variable=man, value=2)
+        gds = Radiobutton(frame,text="1. GDS", anchor="w",variable=man, value= 1)
+        gdrive = Radiobutton(frame,text="2. GDrive",anchor="w",variable=man, value=2)
 
         gds.grid(row=5,column=2)
-        gdrive.grid(row=6,column=2)
+        gdrive.grid(row=5,column=3)
 
-        myLabel1 = Label(frame,text="What is the pixel?")
+        myLabel1 = Label(frame,text="What is the pixel?", anchor="w")
         myLabel1.grid(row=7,column=2)
 
-        p1 = Radiobutton(frame,text="1080p", variable=pix, value=1)
-        p2 = Radiobutton(frame,text="720p", variable=pix, value=2)
-        p3 = Radiobutton(frame,text="720p HEVC", variable=pix, value=3)
-        p4 = Radiobutton(frame,text="480p", variable=pix, value=4)
+        p1 = Radiobutton(frame,text="1080p", variable=pix, value=1, anchor="w")
+        p2 = Radiobutton(frame,text="720p", variable=pix, value=2, anchor="w")
+        p3 = Radiobutton(frame,text="720p HEVC", variable=pix, value=3, anchor="w")
+        p4 = Radiobutton(frame,text="480p", variable=pix, value=4, anchor="w")
         p1.grid(row=8,column=2)
         p2.grid(row=9,column=2)
         p3.grid(row=10,column=2)
         p4.grid(row=11,column=2)
     elif "season" in e.get().lower():
 
-        myLabel = Label(frame,text="How do you want to download the file?")
+        myLabel = Label(frame,text="How do you want to download the file?",anchor="w")
         myLabel.grid(row=4,column=2)
 
         gds = Radiobutton(frame,text="1. GDS", variable=man, value= 1)
@@ -193,10 +204,18 @@ def removeManual():
         b7.grid_remove()
     except:
         pass
+    try:
+        wrng.pack_forget()
+    except:
+        pass
 
 def custom():
     removeManual()
-
+    return
+def worning(msg):
+    global wrng 
+    wrng= Label(root,borderwidth=1, relief="solid",text=f"WORNING!!{msg}",foreground="red")
+    wrng.pack()
     return
 
 # defining Tkinter
