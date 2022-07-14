@@ -1,5 +1,4 @@
 from tkinter import *
-from turtle import color
 from movie import mrun,main
 from series import srun,seasonwise,epwise
 from custom.custom import *
