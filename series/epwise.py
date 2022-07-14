@@ -63,13 +63,13 @@ def getGDSep(season,ep,pixel,url):
     except NameError:
         print(f"There is no {pixel}!")
 def getGDriveep(season,ep,pixel,url):
-    #getDownloadPage(url)
+    getDownloadPage(url)
     allstrong = mainSoup.findAll('strong')
     strong = allstrong
     for item in allstrong:
         if 'ep {}'.format(ep) in str(item).lower() or 'episode {}'.format(ep) in str(item).lower()or 'epi{}'.format(ep) in str(item).lower()or 'epi {}'.format(ep) in str(item).lower():
             print(item.getText(),end=" ")
-            strong = allstrong[allstrong.index(item):allstrong.index(item)+3]
+            strong = allstrong[allstrong.index(item):allstrong.index(item)+10]
             break
         else:
             pass
@@ -101,14 +101,12 @@ def getGDriveep(season,ep,pixel,url):
                     print(href.getText(),end=" ")
                     break
             break
-
     try:
         boabd =soup.find('input').get('value')
         print(boabd)
         webbrowser.open(boabd)
-    except AttributeError:
-        boabd =adsgolink
-        print(boabd)
+    except NameError:
+        print(f"There is no {pixel}!")
 def GDSorGDrive(choise,season,i,pixel,url):
     if choise=='1':
         getGDSep(season,i,pixel,url)
